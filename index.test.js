@@ -1,8 +1,4 @@
-//const {MenuItems, Menu, Restaurant, sequelize} = require('./index')
-const {Movie} = require('./models/Movie')
-const {sequelize} = require('./db')
-const {Cast} = require('./models/Cast')
-const { Crew } = require('./models/Crew')
+const {Movie, Cast, Crew, sequelize} = require('./index')
 
 describe('Express Movie Database', () => {
     beforeAll(async() => {
@@ -78,6 +74,27 @@ describe('Express Movie Database', () => {
 
         //assert that role of cast index 1 is Captain Danny Walker
         expect(castRole[1].role).toBe('Captain Danny Walker')
+    })
+
+    test('movie has casts', async() => {
+        //read movie instance from db
+        const movieTitle = await Movie.findOne({
+            where: {
+                title: "Pearl Harbor"
+            }
+        });
+
+        //read cast instance from db
+        const castList = await Cast.findAll()
+
+        //add all casts to movie
+        await movieTitle.addCast(castList)
+
+        //retrieve list of casts in this movie
+        const allCast = await movieTitle.getCasts()
+
+        //assert that lenght is 3
+        expect(allCast.length).toBe(3)
     })
 
     //test cases for Crew model
