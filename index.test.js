@@ -130,6 +130,27 @@ describe('Express Movie Database', () => {
         expect(crewDepartment[0].department).toBe('Cinematography')
     })
 
+    test('movie has crews', async() => {
+        //read movie instance from db
+        const movieTitle = await Movie.findOne({
+            where: {
+                title: "Pearl Harbor"
+            }
+        });
+
+        //read crews instance from db
+        const crewLists = await Crew.findAll()
+
+        //add all crews to movie
+        await movieTitle.addCrew(crewLists)
+
+        //retrieve list of casts in this movie
+        const allCrew = await movieTitle.getCrews()
+
+        //assert that lenght is 3
+        expect(allCrew.length).toBe(4)
+    })
+
     afterAll(async()=> {
         sequelize.close()
     })
