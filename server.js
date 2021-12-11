@@ -69,6 +69,115 @@ app.delete('/movies/:id', async(req, res) => {
 })
 //END
 
+//Cast model
+//POST method on /casts route
+//create or insert new cast into the Cast model
+app.post('/casts', async(req, res) => {
+    //create a cast using the json object passed in the request body
+    let newCast = await Cast.create(req.body)
+
+    //send a response string
+    res.send(`Cast id: ${req.body.id} has successfully created!`)
+} )
+
+//GET method on /casts route
+//returns all casts
+app.get('/casts', async(req, res) => {
+    //find all instances of the model Cast
+    const allCasts = await Cast.findAll()
+
+    //respond with allCasts as a json object
+    res.json(allCasts)
+})
+
+//returns specific instance of cast by id
+app.get('/casts/:id', async(req, res) => {
+    const thisCast = await Cast.findByPk(req.params.id)
+    res.send(thisCast)
+})
+
+//returns specific cast by name
+app.get('/casts-name/:name', async(req, res) => {
+    //find one specific instances of the cast model
+    const thisCast = await Cast.findOne({
+        where: {
+            name: req.params.name
+        }
+    })
+
+    //respond with specific json object
+    res.json(thisCast)
+})
+
+//update one Cast by id
+app.put('/casts/:id', async(req, res) => {
+    let updateCast = await Cast.update(req.body, {
+        where: { id: req.params.id}
+    })
+    res.send(`Cast id: ${req.params.id} has successfully updated!`)
+})
+
+//delete specific cast by id
+app.delete('/casts/:id', async(req, res) => {
+    await Cast.destroy({
+        where: {
+            id: req.params.id
+        }
+    })
+    res.send(`Cast id: ${req.params.id} has successfully deleted!`)
+})
+
+//Crew model
+//create new crew
+app.post('/crews', async(req, res) => {
+    //create a crew using json object passed in the request body
+    let newCrew = await Crew.create(req.body)
+
+    //send a respond string
+    res.send(`Crew id: ${req.body.id} has successfully created!`)
+})
+
+//GET method on /crew route 
+//returns all crews
+app.get('/crews', async(req, res) => {
+    //find all instances of the model Crew
+    const allCrews = await Crew.findAll()
+
+    //respond with crew as a json object
+    res.json(allCrews)
+})
+
+//returns specific crew by id
+app.get('/crews/:id', async(req, res) => {
+    //find one specific instances of the crew model
+    const thisCrew = await Crew.findByPk(req.params.id)
+
+    //respond with specific json object
+    res.json(thisCrew)
+})
+
+//update one crew by id
+app.put('/crews/:id', async(req, res) => {
+    let updateCrew = await Crew.update(req.body, {
+        where: {
+            id: req.params.id
+        }
+    })
+
+    res.send(`Crew id: ${req.body.id} has successfully updated!`)
+})
+
+//delete one crew by id
+app.delete('/crews/:id', async(req, res) => {
+    await Crew.destroy({
+        where: {
+            id: req.params.id
+        }
+    })
+
+    res.send(`Crew id: ${req.params.id} has successfully deleted!`)
+})
+
 app.listen(port, () => {
     console.log(`Server listening at http://localhost:${port}`)
 })
