@@ -12,7 +12,9 @@
 <img width="1004" alt="kanban" src="https://user-images.githubusercontent.com/53575035/145716485-5eaf96f2-0b81-4eb5-8f39-5767f69cb97b.png">
 
 **Testing
-<img width="1390" alt="jest-test" src="https://user-images.githubusercontent.com/53575035/145716517-76e4a879-0a7e-4582-9af7-eff3d5bb1e31.png">
+<img width="1390" alt="jest-test" src="./images/test1.png">
+<img width="1390" alt="jest-test" src="./images/models.png">
+<img width="1390" alt="jest-test" src="./images/db.png">
 
 
 
