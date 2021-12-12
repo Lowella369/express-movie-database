@@ -1,7 +1,4 @@
 # Express Movie Database
-
-<img width="885" alt="postman" src="https://user-images.githubusercontent.com/53575035/145716463-c300427c-c1eb-46f9-afb9-a5de6534e15e.png">
-
 **Description** 
 * Express Movie Database is an API where you can create, update select and delete data from the database.
 
