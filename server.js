@@ -58,7 +58,7 @@ app.put('/movies/:id', async(req, res) => {
     res.send(`Movie id: ${req.params.id} has successfully updated!`)
 })
 
-//delete specific restaurant
+//delete specific movie
 app.delete('/movies/:id', async(req, res) => {
     await Movie.destroy({
         where: {
