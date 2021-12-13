@@ -1,5 +1,6 @@
 const express = require('express')
 const path = require('path') 
+const {check, validationResult} = require('express-validator');
 
 const {Movie, Cast, Crew} = require('./index') 
 
@@ -13,12 +14,16 @@ app.use(express.json())
 
 //Movie model
 //create new movie
-app.post('/movies', async(req, res) => {
-    //create a movie using the json object passed in the request body
-    let newMovie = await Movie.create(req.body)
-    
-    //send a response string
-    res.send(`Movie id: ${req.body.id} has successfully created!`)
+app.post('/movies', [check('title').not().isEmpty().trim().escape()],
+    async(req, res) => {
+        const errors = validationResult(req)
+        if(!errors.isEmpty()) {
+            //display message if title is empty
+            return res.status(400).json({errors: errors.array()})
+        } else {
+            let newMovie = await Movie.create(req.body)
+            res.send(`Movie id: ${req.body.id} has successfully created!`)
+        }
 })
 
 //GET method on /movie route 
@@ -72,13 +77,18 @@ app.delete('/movies/:id', async(req, res) => {
 //Cast model
 //POST method on /casts route
 //create or insert new cast into the Cast model
-app.post('/casts', async(req, res) => {
-    //create a cast using the json object passed in the request body
-    let newCast = await Cast.create(req.body)
-
-    //send a response string
-    res.send(`Cast id: ${req.body.id} has successfully created!`)
-} )
+app.post('/casts', [check('name').not().isEmpty().trim().escape()],
+    async(req, res) => {
+        const errors = validationResult(req)
+        if(!errors.isEmpty()) {
+            //display error message if name is empty
+            return res.status(400).json({errors: errors.array()})
+        } else {
+            //create a cast using the json object passed in the request body
+            let newCast = await Cast.create(req.body)
+            res.send(`Cast id: ${req.body.id} has successfully created!`)
+        }
+})
 
 //GET method on /casts route
 //returns all casts
@@ -129,12 +139,17 @@ app.delete('/casts/:id', async(req, res) => {
 
 //Crew model
 //create new crew
-app.post('/crews', async(req, res) => {
-    //create a crew using json object passed in the request body
-    let newCrew = await Crew.create(req.body)
-
-    //send a respond string
-    res.send(`Crew id: ${req.body.id} has successfully created!`)
+app.post('/crews', [check('name').not().isEmpty().trim().escape()],
+    async(req, res) => {
+        const errors = validationResult(req)
+        if(!errors.isEmpty()) {
+            //display error message if name is empty
+            return res.status(400).json({errors: errors.array()})
+        } else {
+            //create a cast using the json object passed in the request body
+            let newCrew = await Crew.create(req.body)
+            res.send(`Crew id: ${req.body.id} has successfully created!`)
+        }
 })
 
 //GET method on /crew route 

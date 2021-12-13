@@ -20,6 +20,7 @@
   "homepage": "https://github.com/Lowella369/express-movie-database#readme",
   "dependencies": {
     "express": "^4.17.1",
+    "express-validator": "^6.14.0",
     "jest": "^27.4.3",
     "sequelize": "^6.12.0-beta.1",
     "sqlite3": "^5.0.2"
